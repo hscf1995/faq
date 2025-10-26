@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HSCF — FAQ | Interim Next Generation Committee</title>
+  <style>
+    /* --- Color palette (from the flyer) --- */
+    :root{
+      --green: #0f7a3a;
+      --deep-green: #0b5b2b;
+      --gold: #d99a2b;
+      --red: #d0342a;
+      --black: #111317;
+      --cream: #fff7ef;
+      --muted: #6b6f76;
+      --card: #ffffff;
+      --pattern-accent: rgba(13,85,44,0.06);
+    }
+
+    /* --- Base --- */
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--cream), #fff);
+      color:var(--black);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+    a{color:var(--deep-green); text-decoration:none}
+    img{max-width:100%; height:auto; display:block}
+
+    /* --- Top nav --- */
+    .nav {
+      background: linear-gradient(90deg,var(--green),var(--deep-green));
+      color:white;
+      padding:14px 22px;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.08);
+      position:sticky;
+      top:0;
+      z-index:40;
+    }
+    .nav .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex: 1 1 auto;
+    }
+    .nav .brand img{width:58px; height:auto; border-radius:6px; background:white; padding:4px}
+    .nav .brand h1{font-size:18px; margin:0; font-weight:700; letter-spacing:0.4px}
+    .nav .links {display:flex; gap:12px; align-items:center}
+    .nav .links button {
+      border:0;
+      background:transparent;
+      color:white;
+      padding:8px 12px;
+      border-radius:6px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .nav .links button.active,
+    .nav .links button:hover{
+      background: rgba(255,255,255,0.09);
+    }
+
+    /* --- Hero --- */
+    .hero {
+      display:flex;
+      gap:28px;
+      align-items:center;
+      padding:36px 6%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));
+      border-bottom: 8px solid var(--pattern-accent);
+    }
+    .hero .left { max-width:720px; }
+    .hero h2 { margin:0; color:var(--deep-green); font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:1.6px; opacity:0.95;}
+    .hero h1 { margin:12px 0 8px; font-size:34px; color:var(--black); }
+    .hero p.lead { margin:0; color:var(--muted); font-size:15px }
+    .hero .cta { margin-top:16px; display:flex; gap:12px; flex-wrap:wrap }
+    .btn {
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      border:0;
+      box-shadow:0 6px 18px rgba(13,85,44,0.06);
+    }
+    .btn.primary {
+      background:var(--green); color:white;
+    }
+    .btn.ghost {
+      background:transparent; color:var(--deep-green); border:2px solid var(--deep-green);
+    }
+    .hero .right { flex: 1 1 360px; display:flex; justify-content:center; align-items:center; }
+
+    /* --- Pattern accent (subtle traditional motif) --- */
+    .pattern {
+      height:18px;
+      background-image: repeating-linear-gradient(90deg,
+         rgba(0,0,0,0) 0 12px,
+         rgba(0,0,0,0.02) 12px 14px);
+      opacity:0.6;
+    }
+    /* decorative border strip */
+    .chant {
+      border-top:8px solid transparent;
+      background-image:
+        radial-gradient(circle at 10% 50%, rgba(217,154,43,0.06) 0 8%, transparent 9%),
+        linear-gradient(90deg, rgba(13,85,44,0.02), transparent 30%, rgba(208,52,42,0.02));
+      padding:10px 6%;
+    }
+
+    /* --- Layout grid --- */
+    .container { max-width:1100px; margin:28px auto; padding:0 18px }
+
+    .card {
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:0 6px 26px rgba(13,85,44,0.04);
+      padding:22px;
+      margin-bottom:18px;
+      border-left:6px solid rgba(13,85,44,0.03);
+    }
+    h3.section-title { margin:6px 0 12px; font-size:20px; color:var(--deep-green)}
+
+    /* --- Tabs content --- */
+    .tab-content { padding-top:8px }
+    .tab-panel { display:none }
+    .tab-panel.active { display:block }
+
+    /* --- Accordion (FAQ) --- */
+    .accordion .item { border-top:1px dashed rgba(0,0,0,0.06) }
+    .accordion .q {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:14px 8px; cursor:pointer; gap:10px;
+    }
+    .accordion .q h4 { margin:0; font-size:15px; color:var(--black); }
+    .accordion .q .chev { transition: transform .25s ease; color:var(--muted) }
+    .accordion .a { padding:0 8px 18px 8px; color:var(--muted); display:none; line-height:1.6 }
+    .accordion .item.open .a { display:block }
+    .accordion .item.open .chev { transform: rotate(90deg); color:var(--deep-green) }
+
+    /* --- Contact card --- */
+    .contact-row { display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap }
+    .contact-row .info { flex:1 1 380px }
+
+    /* --- Footer --- */
+    footer { text-align:center; padding:26px 10px; color:var(--muted); font-size:13px; }
+
+    /* --- Responsive --- */
+    @media (max-width:880px){
+      .hero { flex-direction:column; padding:22px; gap:18px }
+      .nav .links { display:none } /* simplified */
+      .nav .brand h1 { font-size:15px }
+    }
+    @media (max-width:520px){
+      .hero h1{ font-size:22px }
+    }
+
+    /* subtle decorative corner shapes to echo traditional items */
+    .decor-corner {
+      position: absolute;
+      width:120px; height:120px; opacity:0.08;
+      background: radial-gradient(circle at 20% 20%, var(--gold), transparent 20%),
+                  radial-gradient(circle at 80% 80%, var(--red), transparent 20%);
+      border-radius:20px;
+      pointer-events:none;
+    }
+    .decor-corner.top-left{ top:6px; left:6px; transform:rotate(-20deg) }
+    .decor-corner.bottom-right{ bottom:6px; right:6px; transform:rotate(30deg) }
+  </style>
+</head>
+<body>
+
+  <div class="nav" role="navigation" aria-label="Primary">
+    <div class="brand" onclick="goTo('about')" style="cursor:pointer">
+  <img src="hscf-logo.png" alt="HSCF logo">
+</div>
+
+
+    <div class="links" role="tablist" aria-label="Main navigation">
+      <button class="tab-btn active" data-tab="about">About</button>
+      <button class="tab-btn" data-tab="structure">Structure</button>
+      <button class="tab-btn" data-tab="faq">FAQ</button>
+      <button class="tab-btn" data-tab="contact">Contact</button>
+    </div>
+  </div>
+
+  <div class="hero" role="banner">
+    <div class="decor-corner top-left" aria-hidden="true"></div>
+    <div class="left">
+      <h2>Reimagining the future of HSCF</h2>
+      <h1>A Next Generation Vision for Kuba</h1>
+      <p class="lead">HSCF Interim Next Generation Committee — A transparent, inclusive plan to build a federated model that serves our diaspora's future.</p>
+      <div class="cta">
+        <button class="btn primary" onclick="goTo('faq')">View FAQs</button>
+        <button class="btn ghost" onclick="goTo('contact')">Contact the Committee</button>
+      </div>
+    </div>
+    <div class="right">
+      <!-- Hero image (replace with your banner) -->
+      <img src="hero.png" alt="Next Generation Vision for Kuba banner" style="border-radius:12px; max-height:210px; object-fit:cover;">
+    </div>
+  </div>
+
+  <div class="pattern" aria-hidden="true"></div>
+
+  <main class="container" id="main">
+    <section class="chant card" id="about" role="region" aria-labelledby="about-title">
+      <h3 class="section-title" id="about-title">About this work</h3>
+      <div style="display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap">
+        <div style="flex:1 1 520px">
+          <p style="margin:0 0 10px;color:var(--muted)">
+            As we continue to build a new vision for Kuba, we know there are a lot of questions and concerns being shared across different spaces. This FAQ and site are intended to gather those questions in one place and respond as openly and clearly as we can.
+          </p>
+          <p style="margin:0;color:var(--muted)">
+            The HSCF Interim Next Generation Committee will continue to update this document in real time as more questions come up. Our goal is to stay accountable, responsive, and focused on building with intention and care.
+          </p>
+        </div>
+
+        <aside style="flex:0 1 260px">
+          <div style="background:linear-gradient(180deg, rgba(15,122,58,0.06), transparent); padding:12px; border-radius:10px;">
+            <strong style="color:var(--deep-green)">Town hall</strong>
+            <div style="margin-top:6px; color:var(--muted)">Sunday, October 19th — details will be posted here.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="card" id="structure" role="region" aria-labelledby="structure-title">
+      <h3 class="section-title" id="structure-title">Interim Committee & Structure</h3>
+      <p style="color:var(--muted)">This committee is temporary, created to begin the transition and propose a new structure. We are building an inclusive model and will hold open elections after Kuba 2026 to form a permanent leadership body representing Hararis across the diaspora.</p>
+
+      <div style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap">
+        <div style="flex:1 1 320px; min-width:260px">
+          <div style="padding:12px; border-radius:10px; background:linear-gradient(180deg,#fff,#fff); border:1px solid rgba(0,0,0,0.04)">
+            <strong>Maher Addish</strong>
+            <div style="color:var(--muted); margin-top:6px">Lead, Event Operations — clinical project manager & healthcare consultant with 13 years of experience.</div>
+          </div>
+        </div>
+
+        <div style="flex:1 1 320px; min-width:260px">
+          <div style="padding:12px; border-radius:10px; background:linear-gradient(180deg,#fff,#fff); border:1px solid rgba(0,0,0,0.04)">
+            <strong>Hana Kamal</strong>
+            <div style="color:var(--muted); margin-top:6px">Lead, Strategy and Governance — independent consultant specializing in strategic planning and governance.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="faq" role="region" aria-labelledby="faq-title">
+      <h3 class="section-title" id="faq-title">Frequently Asked Questions</h3>
+
+      <div class="accordion" role="list">
+        <!-- item template -->
+        <div class="item">
+          <div class="q" role="button" tabindex="0" aria-expanded="false">
+            <h4>Are you still working with or representing the Founding Fathers?</h4>
+            <div class="chev">▶</div>
+          </div>
+          <div class="a">
+            <p><strong>No.</strong> To be as clear as possible: we are not affiliated with the Founding Fathers. They have fully stepped down, dissolved their transition team, and handed leadership of this work to the Interim Next Generation Committee members. Since that transition, we have not involved them in decision-making, messaging, or planning.</p>
+            <p>The Founding Fathers are learning about this work at the same time as the rest of the community. While we respect the foundation they laid, we are not here to uphold or extend their original vision unchecked. We are focused on building something that reflects our generation’s needs and future.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="q" role="button" tabindex="0" aria-expanded="false">
+            <h4>Are you pushing the elders out?</h4>
+            <div class="chev">▶</div>
+          </div>
+          <div class="a">
+            <p><strong>No.</strong> We are not pushing elders out. They are an important part of the community and we value their presence, experience, and guidance.</p>
+            <p>Our goal is to create a structure where elders can engage productively and in an advisory role while allowing the next generation to take primary leadership in shaping and executing the vision.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="q" role="button" tabindex="0" aria-expanded="false">
+            <h4>Since the interim committee is made up of unelected representatives from Atlanta, how will you ensure diverse representation?</h4>
+            <div class="chev">▶</div>
+          </div>
+          <div class="a">
+            <p>We understand the concern. This committee is temporary, created to begin the transition and propose a new structure. We cannot hold meaningful elections without first creating a shared framework. We’ve started connecting with people in other cities to bring them in as partners and will expand the interim committee as next generation leaders from other communities join. After Kuba 2026, we will hold open elections for a permanent leadership body.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="q" role="button" tabindex="0" aria-expanded="false">
+            <h4>What skills and experience do you bring to this process?</h4>
+            <div class="chev">▶</div>
+          </div>
+          <div class="a">
+            <p>We bring professional experience in strategic planning, nonprofit management, organizational development, event production, facilitation, communications, and conflict resolution. We’re applying proven project design and management approaches while honoring the community’s legacy.</p>
+            <p>The interim committee is led by Maher Addish (Lead, Event Operations) and Hana Kamal (Lead, Strategy and Governance), both of whom bring years of relevant experience.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="q" role="button" tabindex="0" aria-expanded="false">
+            <h4>Isn’t this divisive?</h4>
+            <div class="chev">▶</div>
+          </div>
+          <div class="a">
+            <p>We believe labeling new ideas as "divisive" has often stopped honest dialogue. Our aim is not to divide—it's to build a more inclusive, modern, and accountable model that can evolve with our needs. Collaboration is central to what we’re doing, and we ask for imagination, openness, and a shared willingness to build something stronger together.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="q" role="button" tabindex="0" aria-expanded="false">
+            <h4>Why not just wait for the next election and lobby from within?</h4>
+            <div class="chev">▶</div>
+          </div>
+          <div class="a">
+            <p>The current structure does not function as a true federation and lacks central authority for standards, redistribution of resources, and accountability. Cities often operate independently without meaningful coordination, which leads to inequity. We're stepping forward to build a model we believe will better serve next generation Hararis and the diaspora.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="q" role="button" tabindex="0" aria-expanded="false">
+            <h4>When will there be a public conversation?</h4>
+            <div class="chev">▶</div>
+          </div>
+          <div class="a">
+            <p>We are planning a town hall-style gathering on Sunday, October 19th to share our proposed vision, goals, and structure. This will be a space for open discussion, reflection, and input. Please stay tuned for more details.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="q" role="button" tabindex="0" aria-expanded="false">
+            <h4>Things can’t change overnight, right?</h4>
+            <div class="chev">▶</div>
+          </div>
+          <div class="a">
+            <p>Correct — we’re not expecting instant change. We are prioritizing a gradual transition with a hybrid model, a multi-year roadmap (2–3 years), and staged milestones. We value local organizers and aim to empower local efforts while building shared standards and coordination.</p>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="q" role="button" tabindex="0" aria-expanded="false">
+            <h4>I still have more questions.</h4>
+            <div class="chev">▶</div>
+          </div>
+          <div class="a">
+            <p>We know this is a lot to take in. Please reach out at <a href="mailto:HSCFInterimCommittee@gmail.com">HSCFInterimCommittee@gmail.com</a>. We’ll be sure to cover additional questions at the townhall.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="card" id="contact" role="region" aria-labelledby="contact-title">
+      <h3 class="section-title" id="contact-title">Contact</h3>
+
+      <div class="contact-row">
+        <div class="info">
+          <p style="margin:0 0 8px; color:var(--muted)">Have a question to add? Want to participate or partner with us? Reach out:</p>
+          <p style="margin:0 0 8px;"><strong>Email</strong>: <a href="mailto:HSCFInterimCommittee@gmail.com">HSCFInterimCommittee@gmail.com</a></p>
+          <p style="margin:0 0 8px;"><strong>Town hall</strong>: Sunday, October 19 — details posted soon.</p>
+        </div>
+
+        <div style="flex:0 1 220px">
+          <div style="padding:12px; background:linear-gradient(180deg,rgba(217,154,43,0.06),transparent); border-radius:10px;">
+            <strong style="color:var(--deep-green)">Newsletter</strong>
+            <p style="color:var(--muted); margin-top:8px">Sign up on our site to receive updates (coming soon).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div style="font-weight:700; color:var(--deep-green)">Harari Sports &amp; Cultural Federation</div>
+      <div style="margin-top:6px">Interim Next Generation Committee • © 2025</div>
+    </footer>
+  </main>
+
+  <div class="decor-corner bottom-right" aria-hidden="true"></div>
+
+  <script>
+    // Tab switching
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    function activateTab(name){
+      tabButtons.forEach(b=>{
+        b.classList.toggle('active', b.dataset.tab === name);
+      });
+      document.querySelectorAll('.tab-panel').forEach(p=>{
+        p.classList.remove('active');
+      });
+      // We implemented single page anchors; scroll to section
+      const el = document.getElementById(name);
+      if(el) {
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+        // give focus for accessibility
+        el.setAttribute('tabindex','-1');
+        el.focus({preventScroll:true});
+      }
+    }
+    tabButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=> activateTab(btn.dataset.tab));
+    });
+
+    function goTo(id){
+      // mimic tab click
+      document.querySelectorAll('.tab-btn').forEach(b=> b.classList.remove('active'));
+      const btn = Array.from(document.querySelectorAll('.tab-btn')).find(x=> x.dataset.tab === id);
+      if(btn) btn.classList.add('active');
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Accordion behavior
+    document.querySelectorAll('.accordion .item .q').forEach(q=>{
+      q.addEventListener('click', ()=>{
+        const item = q.parentElement;
+        const open = item.classList.toggle('open');
+        q.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      // keyboard accessibility
+      q.addEventListener('keydown', (ev)=>{
+        if(ev.key === 'Enter' || ev.key === ' '){
+          ev.preventDefault();
+          q.click();
+        }
+      });
+    });
+
+    // On load — nothing open. But if user has #faq in URL, scroll.
+    if(location.hash){
+      const id = location.hash.replace('#','');
+      const el = document.getElementById(id);
+      if(el) setTimeout(()=> el.scrollIntoView({behavior:'smooth', block:'start'}), 120);
+    }
+  </script>
+</body>
+</html>
